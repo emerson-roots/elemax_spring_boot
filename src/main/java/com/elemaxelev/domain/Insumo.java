@@ -40,7 +40,7 @@ public class Insumo implements Serializable {
 	}
 
 	public Insumo(Long id, String nome, BigDecimal valorCompra, UnidadeMedida unidadeMedida, Double qtdPorEmbalagem,
-			BigDecimal valorPorUnidade, LocalDate dataAtualizacao, Set<InsumoFornecedor> insumosFornecedor) {
+			BigDecimal valorPorUnidade, LocalDate dataAtualizacao) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -49,7 +49,6 @@ public class Insumo implements Serializable {
 		this.qtdPorEmbalagem = qtdPorEmbalagem;
 		this.valorPorUnidade = valorPorUnidade;
 		this.dataAtualizacao = dataAtualizacao;
-		this.insumosFornecedor = insumosFornecedor;
 	}
 
 	public List<Fornecedor> getFornecedores(){
