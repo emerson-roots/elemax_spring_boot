@@ -13,6 +13,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "fornecedor")
 public class Fornecedor implements Serializable {
@@ -28,20 +30,17 @@ public class Fornecedor implements Serializable {
 	private String horarioFuncionamento;
 
 	@ManyToOne
-	@JoinColumn(name = "estado_id")
-	private Estado estado;
-
-	@ManyToOne
 	@JoinColumn(name = "cidade_id")
 	private Cidade cidade;
 
 	// utilizado Set para garantir que não haja
 	// insumos repetidos para um determinado fornecedor
+	@JsonIgnore
 	@OneToMany(mappedBy = "id.fornecedor")
 	private Set<InsumoFornecedor> insumosFornecedor = new HashSet<>();
 
 	public Fornecedor(Long id, String nomeFantasia, String endereco, Long numero, String bairro,
-			String horarioFuncionamento, Estado estado, Cidade cidade) {
+			String horarioFuncionamento, Cidade cidade) {
 		super();
 		this.id = id;
 		this.nomeFantasia = nomeFantasia;
@@ -49,7 +48,6 @@ public class Fornecedor implements Serializable {
 		this.numero = numero;
 		this.bairro = bairro;
 		this.horarioFuncionamento = horarioFuncionamento;
-		this.estado = estado;
 		this.cidade = cidade;
 	}
 
@@ -111,14 +109,6 @@ public class Fornecedor implements Serializable {
 
 	public void setHorarioFuncionamento(String horarioFuncionamento) {
 		this.horarioFuncionamento = horarioFuncionamento;
-	}
-
-	public Estado getEstado() {
-		return estado;
-	}
-
-	public void setEstado(Estado estado) {
-		this.estado = estado;
 	}
 
 	public Cidade getCidade() {

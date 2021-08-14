@@ -63,8 +63,8 @@ public class DBService {
 		Cidade cidade3 = new Cidade(null, "Angra", estado2);
 		cidadeRepository.saveAll(Arrays.asList(cidade1, cidade2, cidade3));
 
-		Fornecedor fornecedor1 = new Fornecedor(null, "Magazine Luiza", "Av. Brasil", 123l, "Indianapolis", "08:00 as 18:00", estado1, cidade1);
-		Fornecedor fornecedor2 = new Fornecedor(null, "Casas Bahia", "Rua Bahia", 321l, "Monaco", "09:00 as 12:00", estado2, cidade3);
+		Fornecedor fornecedor1 = new Fornecedor(null, "Magazine Luiza", "Av. Brasil", 123l, "Indianapolis", "08:00 as 18:00", cidade1);
+		Fornecedor fornecedor2 = new Fornecedor(null, "Casas Bahia", "Rua Bahia", 321l, "Monaco", "09:00 as 12:00", cidade3);
 		fornecedorRepository.saveAll(Arrays.asList(fornecedor1, fornecedor2));
 		
 		
