@@ -1,8 +1,8 @@
 package com.elemaxelev.domain;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -35,11 +35,13 @@ public class Fornecedor implements Serializable {
 	@JoinColumn(name = "cidade_id")
 	private Cidade cidade;
 
-	@OneToMany(mappedBy = "fornecedor")
-	private List<InsumoFornecedor> insumosFornecedor = new ArrayList<>();
+	// utilizado Set para garantir que não haja
+	// insumos repetidos para um determinado fornecedor
+	@OneToMany(mappedBy = "id.fornecedor")
+	private Set<InsumoFornecedor> insumosFornecedor = new HashSet<>();
 
 	public Fornecedor(Long id, String nomeFantasia, String endereco, Long numero, String bairro,
-			String horarioFuncionamento, Estado estado, Cidade cidade, List<InsumoFornecedor> insumosFornecedor) {
+			String horarioFuncionamento, Estado estado, Cidade cidade) {
 		super();
 		this.id = id;
 		this.nomeFantasia = nomeFantasia;
@@ -49,10 +51,18 @@ public class Fornecedor implements Serializable {
 		this.horarioFuncionamento = horarioFuncionamento;
 		this.estado = estado;
 		this.cidade = cidade;
-		this.insumosFornecedor = insumosFornecedor;
 	}
 
 	public Fornecedor() {
+
+	}
+
+	public Set<InsumoFornecedor> getInsumosFornecedor() {
+		return insumosFornecedor;
+	}
+
+	public void setInsumosFornecedor(Set<InsumoFornecedor> insumosFornecedor) {
+		this.insumosFornecedor = insumosFornecedor;
 	}
 
 	public Long getId() {
@@ -119,27 +129,11 @@ public class Fornecedor implements Serializable {
 		this.cidade = cidade;
 	}
 
-	public List<InsumoFornecedor> getInsumosFornecedor() {
-		return insumosFornecedor;
-	}
-
-	public void setInsumosFornecedor(List<InsumoFornecedor> insumosFornecedor) {
-		this.insumosFornecedor = insumosFornecedor;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((bairro == null) ? 0 : bairro.hashCode());
-		result = prime * result + ((cidade == null) ? 0 : cidade.hashCode());
-		result = prime * result + ((endereco == null) ? 0 : endereco.hashCode());
-		result = prime * result + ((estado == null) ? 0 : estado.hashCode());
-		result = prime * result + ((horarioFuncionamento == null) ? 0 : horarioFuncionamento.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((insumosFornecedor == null) ? 0 : insumosFornecedor.hashCode());
-		result = prime * result + ((nomeFantasia == null) ? 0 : nomeFantasia.hashCode());
-		result = prime * result + ((numero == null) ? 0 : numero.hashCode());
 		return result;
 	}
 
@@ -152,52 +146,13 @@ public class Fornecedor implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Fornecedor other = (Fornecedor) obj;
-		if (bairro == null) {
-			if (other.bairro != null)
-				return false;
-		} else if (!bairro.equals(other.bairro))
-			return false;
-		if (cidade == null) {
-			if (other.cidade != null)
-				return false;
-		} else if (!cidade.equals(other.cidade))
-			return false;
-		if (endereco == null) {
-			if (other.endereco != null)
-				return false;
-		} else if (!endereco.equals(other.endereco))
-			return false;
-		if (estado == null) {
-			if (other.estado != null)
-				return false;
-		} else if (!estado.equals(other.estado))
-			return false;
-		if (horarioFuncionamento == null) {
-			if (other.horarioFuncionamento != null)
-				return false;
-		} else if (!horarioFuncionamento.equals(other.horarioFuncionamento))
-			return false;
 		if (id == null) {
 			if (other.id != null)
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
-		if (insumosFornecedor == null) {
-			if (other.insumosFornecedor != null)
-				return false;
-		} else if (!insumosFornecedor.equals(other.insumosFornecedor))
-			return false;
-		if (nomeFantasia == null) {
-			if (other.nomeFantasia != null)
-				return false;
-		} else if (!nomeFantasia.equals(other.nomeFantasia))
-			return false;
-		if (numero == null) {
-			if (other.numero != null)
-				return false;
-		} else if (!numero.equals(other.numero))
-			return false;
 		return true;
 	}
+	
 
 }

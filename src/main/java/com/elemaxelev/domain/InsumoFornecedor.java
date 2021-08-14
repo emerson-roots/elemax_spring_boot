@@ -3,54 +3,62 @@ package com.elemaxelev.domain;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "insumo_fornecedor")
 public class InsumoFornecedor implements Serializable {
 	private static final long serialVersionUID = 1L;
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	
+	// ao utilizar uma classe auxiliar para chaves compostas
+	// é necessário adaptar os construtores para receber as entidades compostas
+	// e implementar getters e setters manualmente de forma adaptada também
+	// 
+	// os recursos da IDE não fazem isso
+	@EmbeddedId
+	private InsumoFornecedorPK id = new InsumoFornecedorPK();
+	
 	private BigDecimal valorCompra;
 	private String fabricante;
 	private Double qtdPorEmbalagem;
-
-	@ManyToOne
-	@JoinColumn(name = "insumo_id")
-	private Insumo insumo;
-
-	@ManyToOne
-	@JoinColumn(name = "fornecedor_id")
-	private Fornecedor fornecedor;
-
-	public InsumoFornecedor(Long id, BigDecimal valorCompra, String fabricante, Double qtdPorEmbalagem, Insumo insumo,
-			Fornecedor fornecedor) {
-		super();
-		this.id = id;
-		this.valorCompra = valorCompra;
-		this.fabricante = fabricante;
-		this.qtdPorEmbalagem = qtdPorEmbalagem;
-		this.insumo = insumo;
-		this.fornecedor = fornecedor;
-	}
-
+	
 	public InsumoFornecedor() {
 
 	}
+	
+	// contrutor adaptado para trabalhar em conjunto da chave composta InsumoFornecedorPK
+	public InsumoFornecedor(Insumo insumo, Fornecedor fornecedor,  BigDecimal valorCompra, String fabricante, Double qtdPorEmbalagem) {
+		super();
+		id.setInsumo(insumo);
+		id.setFornecedor(fornecedor);
+		this.valorCompra = valorCompra;
+		this.fabricante = fabricante;
+		this.qtdPorEmbalagem = qtdPorEmbalagem;
+	}
+	
+	public Insumo getInsumo() {
+		return id.getInsumo();
+	}
+	
+	public void setInsumo(Insumo insumo) {
+		id.setInsumo(insumo);
+	}
+	
+	public Fornecedor getFornecedor() {
+		return id.getFornecedor();
+	}
+	
+	public void setFornecedor(Fornecedor fornecedor) {
+		id.setFornecedor(fornecedor);
+	}
 
-	public Long getId() {
+	public InsumoFornecedorPK getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(InsumoFornecedorPK id) {
 		this.id = id;
 	}
 
@@ -78,32 +86,11 @@ public class InsumoFornecedor implements Serializable {
 		this.qtdPorEmbalagem = qtdPorEmbalagem;
 	}
 
-	public Insumo getInsumo() {
-		return insumo;
-	}
-
-	public void setInsumo(Insumo insumo) {
-		this.insumo = insumo;
-	}
-
-	public Fornecedor getFornecedor() {
-		return fornecedor;
-	}
-
-	public void setFornecedor(Fornecedor fornecedor) {
-		this.fornecedor = fornecedor;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((fabricante == null) ? 0 : fabricante.hashCode());
-		result = prime * result + ((fornecedor == null) ? 0 : fornecedor.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((insumo == null) ? 0 : insumo.hashCode());
-		result = prime * result + ((qtdPorEmbalagem == null) ? 0 : qtdPorEmbalagem.hashCode());
-		result = prime * result + ((valorCompra == null) ? 0 : valorCompra.hashCode());
 		return result;
 	}
 
@@ -116,37 +103,14 @@ public class InsumoFornecedor implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		InsumoFornecedor other = (InsumoFornecedor) obj;
-		if (fabricante == null) {
-			if (other.fabricante != null)
-				return false;
-		} else if (!fabricante.equals(other.fabricante))
-			return false;
-		if (fornecedor == null) {
-			if (other.fornecedor != null)
-				return false;
-		} else if (!fornecedor.equals(other.fornecedor))
-			return false;
 		if (id == null) {
 			if (other.id != null)
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
-		if (insumo == null) {
-			if (other.insumo != null)
-				return false;
-		} else if (!insumo.equals(other.insumo))
-			return false;
-		if (qtdPorEmbalagem == null) {
-			if (other.qtdPorEmbalagem != null)
-				return false;
-		} else if (!qtdPorEmbalagem.equals(other.qtdPorEmbalagem))
-			return false;
-		if (valorCompra == null) {
-			if (other.valorCompra != null)
-				return false;
-		} else if (!valorCompra.equals(other.valorCompra))
-			return false;
 		return true;
 	}
+	
+	
 
 }
