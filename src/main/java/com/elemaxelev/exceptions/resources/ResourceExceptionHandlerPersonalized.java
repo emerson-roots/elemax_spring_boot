@@ -9,6 +9,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import com.elemaxelev.exceptions.services.DataIntegrityExceptionPersonalized;
 import com.elemaxelev.exceptions.services.ObjectNotFoundExceptionPersonalized;
 
 @ControllerAdvice
@@ -38,6 +39,14 @@ public class ResourceExceptionHandlerPersonalized {
 			err.addError(x.getField(), x.getDefaultMessage());
 		}
 		return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(err);
+	}
+	
+	@ExceptionHandler(DataIntegrityExceptionPersonalized.class)
+	public ResponseEntity<StandardErrorPersonalized> dataIntegrityPersonalized(DataIntegrityExceptionPersonalized e,
+			HttpServletRequest pRequest) {
+		StandardErrorPersonalized err = new StandardErrorPersonalized(System.currentTimeMillis(),
+				HttpStatus.BAD_REQUEST.value(), "Integridade de dados", e.getMessage(), pRequest.getRequestURI());
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
 	}
 
 }

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.elemaxelev.domain.Fornecedor;
+import com.elemaxelev.exceptions.services.DataIntegrityExceptionPersonalized;
 import com.elemaxelev.exceptions.services.ObjectNotFoundExceptionPersonalized;
 import com.elemaxelev.repositories.FornecedorRepository;
 
@@ -27,10 +28,21 @@ public class FornecedorService {
 		return obj.orElseThrow(() -> new ObjectNotFoundExceptionPersonalized(
 				"Objeto não encontrado! Id: " + pId + ", Tipo: " + Fornecedor.class.getName()));
 	}
-	
+
 	public Fornecedor insert(Fornecedor obj) {
+
 		obj.setId(null);
-		return repo.save(obj);
+
+		Fornecedor objByNome = repo.findByNomeFantasia(obj.getNomeFantasia());
+
+		// verifica se ja existe um objeto cadastrado com o mesmo nome
+		if (objByNome == null) {
+			obj = repo.save(obj);
+			return obj;
+		} else {
+			throw new DataIntegrityExceptionPersonalized(
+					"Já existe um fornecedor '" + objByNome.getNomeFantasia() + "' cadastrado.");
+		}
 	}
 
 }

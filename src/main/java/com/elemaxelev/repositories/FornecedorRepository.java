@@ -8,4 +8,5 @@ import com.elemaxelev.domain.Fornecedor;
 @Repository 
 public interface FornecedorRepository extends JpaRepository<Fornecedor, Long>{
 
+	Fornecedor findByNomeFantasia(String nomeFantasia);
 }
