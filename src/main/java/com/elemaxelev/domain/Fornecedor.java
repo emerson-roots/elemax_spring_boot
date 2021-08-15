@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,6 +13,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -23,12 +28,28 @@ public class Fornecedor implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
+	@NotBlank(message = "Preenchimento obrigatório")
+	@Column(unique = true, nullable = false)
 	private String nomeFantasia;
+	
+	@NotBlank(message = "Preenchimento obrigatório")
+	@Column(nullable = false)
 	private String endereco;
+	
+	@NotNull(message = "Preenchimento obrigatório")
+	@Digits(integer = 6, fraction = 0, message = "Deve conter {integer} digitos")
+	@Min(value = 1, message = "O valor deve ser maior ou igual a {value}")
+	@Column(nullable = false, length = 6)
 	private Long numero;
+	
+	@NotBlank(message = "Preenchimento obrigatório")
+	@Column(nullable = false)
 	private String bairro;
+	
 	private String horarioFuncionamento;
-
+	
+	@NotNull(message = "Preenchimento obrigatório. Selecione uma cidade.")
 	@ManyToOne
 	@JoinColumn(name = "cidade_id")
 	private Cidade cidade;
