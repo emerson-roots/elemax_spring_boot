@@ -8,6 +8,7 @@ public class FornecedorDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Long id;
+	private String nomeFantasia;
 	private String endereco;
 	private Long numero;
 	private String bairro;
@@ -21,6 +22,7 @@ public class FornecedorDTO implements Serializable {
 
 	public FornecedorDTO(Fornecedor fornecedor) {
 		id = fornecedor.getId();
+		nomeFantasia = fornecedor.getNomeFantasia();
 		endereco = fornecedor.getEndereco();
 		numero = fornecedor.getNumero();
 		bairro = fornecedor.getBairro();
@@ -36,6 +38,14 @@ public class FornecedorDTO implements Serializable {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+	
+	public String getNomeFantasia() {
+		return nomeFantasia;
+	}
+
+	public void setNomeFantasia(String nomeFantasia) {
+		this.nomeFantasia = nomeFantasia;
 	}
 
 	public String getEndereco() {

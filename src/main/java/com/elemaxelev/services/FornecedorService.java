@@ -27,5 +27,10 @@ public class FornecedorService {
 		return obj.orElseThrow(() -> new ObjectNotFoundExceptionPersonalized(
 				"Objeto não encontrado! Id: " + pId + ", Tipo: " + Fornecedor.class.getName()));
 	}
+	
+	public Fornecedor insert(Fornecedor obj) {
+		obj.setId(null);
+		return repo.save(obj);
+	}
 
 }
