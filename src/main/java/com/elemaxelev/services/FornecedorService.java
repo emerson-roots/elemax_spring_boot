@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.elemaxelev.domain.Fornecedor;
@@ -65,6 +66,16 @@ public class FornecedorService {
 		newObj.setBairro(obj.getBairro());
 		newObj.setHorarioFuncionamento(obj.getHorarioFuncionamento());
 		newObj.setCidade(obj.getCidade());
+	}
+	
+	public void delete(Long id) {
+		findById(id);
+		
+		try {
+			repo.deleteById(id);
+		} catch (DataIntegrityViolationException e) {
+			throw new DataIntegrityExceptionPersonalized("Não é possível excluir porque há registros relacionados.");
+		}
 	}
 
 }
