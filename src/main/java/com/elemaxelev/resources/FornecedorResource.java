@@ -50,4 +50,10 @@ public class FornecedorResource {
 		return ResponseEntity.created(uri).build();
 
 	}
+
+	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<Void> update(@Valid @RequestBody Fornecedor obj, @PathVariable Long id) {
+		service.update(obj);
+		return ResponseEntity.noContent().build();
+	}
 }

@@ -45,4 +45,26 @@ public class FornecedorService {
 		}
 	}
 
+	public Fornecedor update(Fornecedor obj) {
+		Fornecedor newObj = findById(obj.getId());
+		Fornecedor objByNome = repo.findByNomeFantasia(obj.getNomeFantasia());
+
+		if (objByNome == null) {
+			updateData(newObj, obj);
+			return repo.save(newObj);
+		} else {
+			throw new DataIntegrityExceptionPersonalized(
+					"Já existe um fornecedor '" + objByNome.getNomeFantasia() + "' cadastrado.");
+		}
+	}
+
+	private void updateData(Fornecedor newObj, Fornecedor obj) {
+		newObj.setNomeFantasia(obj.getNomeFantasia());
+		newObj.setEndereco(obj.getEndereco());
+		newObj.setNumero(obj.getNumero());
+		newObj.setBairro(obj.getBairro());
+		newObj.setHorarioFuncionamento(obj.getHorarioFuncionamento());
+		newObj.setCidade(obj.getCidade());
+	}
+
 }
