@@ -8,4 +8,6 @@ import com.elemaxelev.domain.Insumo;
 @Repository 
 public interface InsumoRepository extends JpaRepository<Insumo, Long>{
 
+	Insumo findByNome(String nome);
+
 }

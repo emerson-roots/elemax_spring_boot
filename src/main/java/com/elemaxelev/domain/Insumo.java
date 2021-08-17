@@ -16,6 +16,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.elemaxelev.domain.enums.UnidadeMedida;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "insumo")
@@ -33,6 +34,7 @@ public class Insumo implements Serializable {
 	private LocalDate dataAtualizacao;
 	
 	@OneToMany(mappedBy = "id.insumo")
+	@JsonIgnore
 	private Set<InsumoFornecedor> insumosFornecedor = new HashSet<>();
 
 	public Insumo() {
