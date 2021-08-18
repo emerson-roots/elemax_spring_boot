@@ -2,6 +2,7 @@ package com.elemaxelev.resources;
 
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.elemaxelev.domain.Insumo;
+import com.elemaxelev.dto.InsumoDTO;
 import com.elemaxelev.services.InsumoService;
 
 @RestController
@@ -25,9 +27,10 @@ public class InsumoResource {
 	private InsumoService service;
 
 	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<List<Insumo>> findAll() {
+	public ResponseEntity<List<InsumoDTO>> findAll() {
 		List<Insumo> list = service.findAll();
-		return ResponseEntity.ok().body(list);
+		List<InsumoDTO> listDto = list.stream().map(obj -> new InsumoDTO(obj)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(listDto);
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
