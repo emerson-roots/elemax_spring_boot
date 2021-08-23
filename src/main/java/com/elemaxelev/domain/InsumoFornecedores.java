@@ -9,7 +9,7 @@ import javax.persistence.Entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-public class InsumoFornecedor implements Serializable {
+public class InsumoFornecedores implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	// ao utilizar uma classe auxiliar para chaves compostas
@@ -19,18 +19,18 @@ public class InsumoFornecedor implements Serializable {
 	// os recursos da IDE não fazem isso
 	@JsonIgnore
 	@EmbeddedId
-	private InsumoFornecedorPK id = new InsumoFornecedorPK();
+	private InsumoFornecedoresPK id = new InsumoFornecedoresPK();
 	
 	private BigDecimal valorCompra;
 	private String fabricante;
 	private Double qtdPorEmbalagem;
 	
-	public InsumoFornecedor() {
+	public InsumoFornecedores() {
 
 	}
 	
 	// contrutor adaptado para trabalhar em conjunto da chave composta InsumoFornecedorPK
-	public InsumoFornecedor(Insumo insumo, Fornecedor fornecedor,  BigDecimal valorCompra, String fabricante, Double qtdPorEmbalagem) {
+	public InsumoFornecedores(Insumo insumo, Fornecedor fornecedor,  BigDecimal valorCompra, String fabricante, Double qtdPorEmbalagem) {
 		super();
 		id.setInsumo(insumo);
 		id.setFornecedor(fornecedor);
@@ -56,11 +56,11 @@ public class InsumoFornecedor implements Serializable {
 		id.setFornecedor(fornecedor);
 	}
 
-	public InsumoFornecedorPK getId() {
+	public InsumoFornecedoresPK getId() {
 		return id;
 	}
 
-	public void setId(InsumoFornecedorPK id) {
+	public void setId(InsumoFornecedoresPK id) {
 		this.id = id;
 	}
 
@@ -104,7 +104,7 @@ public class InsumoFornecedor implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		InsumoFornecedor other = (InsumoFornecedor) obj;
+		InsumoFornecedores other = (InsumoFornecedores) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;

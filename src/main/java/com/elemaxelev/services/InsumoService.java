@@ -8,7 +8,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.elemaxelev.domain.Insumo;
-import com.elemaxelev.domain.InsumoFornecedor;
+import com.elemaxelev.domain.InsumoFornecedores;
 import com.elemaxelev.exceptions.services.DataIntegrityExceptionPersonalized;
 import com.elemaxelev.exceptions.services.ObjectNotFoundExceptionPersonalized;
 import com.elemaxelev.repositories.InsumoFornecedorRepository;
@@ -46,7 +46,7 @@ public class InsumoService {
 			obj = insumoRepository.save(obj);
 
 			// adiciona fornecedores do insumo a lista (somente as PKs)
-			for (InsumoFornecedor ip : obj.getInsumoFornecedores()) {
+			for (InsumoFornecedores ip : obj.getInsumoFornecedores()) {
 				ip.setInsumo(obj);
 				ip.setFornecedor(ip.getFornecedor());
 			}

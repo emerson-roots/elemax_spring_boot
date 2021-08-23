@@ -8,7 +8,7 @@ import javax.persistence.ManyToOne;
 
 // classe auxiliar de chave composta
 @Embeddable
-public class InsumoFornecedorPK implements Serializable {
+public class InsumoFornecedoresPK implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@ManyToOne
@@ -58,7 +58,7 @@ public class InsumoFornecedorPK implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		InsumoFornecedorPK other = (InsumoFornecedorPK) obj;
+		InsumoFornecedoresPK other = (InsumoFornecedoresPK) obj;
 		if (fornecedor == null) {
 			if (other.fornecedor != null)
 				return false;

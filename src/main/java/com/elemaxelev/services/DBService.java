@@ -16,7 +16,7 @@ import com.elemaxelev.domain.Cidade;
 import com.elemaxelev.domain.Estado;
 import com.elemaxelev.domain.Fornecedor;
 import com.elemaxelev.domain.Insumo;
-import com.elemaxelev.domain.InsumoFornecedor;
+import com.elemaxelev.domain.InsumoFornecedores;
 import com.elemaxelev.domain.enums.UnidadeMedida;
 import com.elemaxelev.repositories.CidadeRepository;
 import com.elemaxelev.repositories.EstadoRepository;
@@ -73,14 +73,14 @@ public class DBService {
 		Insumo insumo3 = new Insumo(null, "Fita Isolante 10m", new BigDecimal(5.5), UnidadeMedida.METRO, 300.0, new BigDecimal(45.7), LocalDate.now());
 		insumoRepository.saveAll(Arrays.asList(insumo1, insumo2, insumo3));
 		
-		InsumoFornecedor insumoFornecedor1 = new InsumoFornecedor(insumo1, fornecedor1, new BigDecimal(342), "Metais Ltda.", 1000.0);
-		InsumoFornecedor insumoFornecedor2 = new InsumoFornecedor(insumo2, fornecedor1, new BigDecimal(412), "Liquidos Ltda.", 500.0);
+		InsumoFornecedores insumoFornecedor1 = new InsumoFornecedores(insumo1, fornecedor1, new BigDecimal(342), "Metais Ltda.", 1000.0);
+		InsumoFornecedores insumoFornecedor2 = new InsumoFornecedores(insumo2, fornecedor1, new BigDecimal(412), "Liquidos Ltda.", 500.0);
 		
 		// simulacao proposital de instanciacao repetida, a classe auxiliar de chave composta ignora e não persiste no banco
-		InsumoFornecedor insumoFornecedor3 = new InsumoFornecedor(insumo2, fornecedor1, new BigDecimal(412), "Liquidos Ltda.", 500.0);
+		InsumoFornecedores insumoFornecedor3 = new InsumoFornecedores(insumo2, fornecedor1, new BigDecimal(412), "Liquidos Ltda.", 500.0);
 		
-		InsumoFornecedor insumoFornecedor4 = new InsumoFornecedor(insumo2, fornecedor2, new BigDecimal(204), "Aço Ltda.", 333.0);
-		InsumoFornecedor insumoFornecedor5 = new InsumoFornecedor(insumo3, fornecedor1, new BigDecimal(150), "Fitas Ltda.", 142.0);
+		InsumoFornecedores insumoFornecedor4 = new InsumoFornecedores(insumo2, fornecedor2, new BigDecimal(204), "Aço Ltda.", 333.0);
+		InsumoFornecedores insumoFornecedor5 = new InsumoFornecedores(insumo3, fornecedor1, new BigDecimal(150), "Fitas Ltda.", 142.0);
 		insumoFornecedorRepository.saveAll(Arrays.asList(insumoFornecedor1, insumoFornecedor2, insumoFornecedor3, insumoFornecedor4, insumoFornecedor5));
 		
 	}

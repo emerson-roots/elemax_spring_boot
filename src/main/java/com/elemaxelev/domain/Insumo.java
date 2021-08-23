@@ -36,7 +36,7 @@ public class Insumo implements Serializable {
 	
 	
 	@OneToMany(mappedBy = "id.insumo")
-	private Set<InsumoFornecedor> insumoFornecedores = new HashSet<>();
+	private Set<InsumoFornecedores> insumoFornecedores = new HashSet<>();
 
 	public Insumo() {
 
@@ -57,18 +57,18 @@ public class Insumo implements Serializable {
 	@JsonIgnore
 	public List<Fornecedor> getFornecedores(){
 		List<Fornecedor> listaFornecedores = new ArrayList<>();
-		for(InsumoFornecedor x: insumoFornecedores) {
+		for(InsumoFornecedores x: insumoFornecedores) {
 			listaFornecedores.add(x.getFornecedor());
 		}
 		
 		return listaFornecedores;
 	}
 	
-	public Set<InsumoFornecedor> getInsumoFornecedores() {
+	public Set<InsumoFornecedores> getInsumoFornecedores() {
 		return insumoFornecedores;
 	}
 
-	public void setInsumoFornecedores(Set<InsumoFornecedor> insumoFornecedores) {
+	public void setInsumoFornecedores(Set<InsumoFornecedores> insumoFornecedores) {
 		this.insumoFornecedores = insumoFornecedores;
 	}
 
