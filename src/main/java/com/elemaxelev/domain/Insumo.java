@@ -33,9 +33,10 @@ public class Insumo implements Serializable {
 	private BigDecimal valorPorUnidade;
 	private LocalDate dataAtualizacao;
 	
+	
+	
 	@OneToMany(mappedBy = "id.insumo")
-	@JsonIgnore
-	private Set<InsumoFornecedor> insumosFornecedor = new HashSet<>();
+	private Set<InsumoFornecedor> insumoFornecedores = new HashSet<>();
 
 	public Insumo() {
 
@@ -52,22 +53,23 @@ public class Insumo implements Serializable {
 		this.valorPorUnidade = valorPorUnidade;
 		this.dataAtualizacao = dataAtualizacao;
 	}
-
+	
+	@JsonIgnore
 	public List<Fornecedor> getFornecedores(){
 		List<Fornecedor> listaFornecedores = new ArrayList<>();
-		for(InsumoFornecedor x: insumosFornecedor) {
+		for(InsumoFornecedor x: insumoFornecedores) {
 			listaFornecedores.add(x.getFornecedor());
 		}
 		
 		return listaFornecedores;
 	}
 	
-	public Set<InsumoFornecedor> getInsumosFornecedor() {
-		return insumosFornecedor;
+	public Set<InsumoFornecedor> getInsumoFornecedores() {
+		return insumoFornecedores;
 	}
 
-	public void setInsumosFornecedor(Set<InsumoFornecedor> insumosFornecedor) {
-		this.insumosFornecedor = insumosFornecedor;
+	public void setInsumoFornecedores(Set<InsumoFornecedor> insumoFornecedores) {
+		this.insumoFornecedores = insumoFornecedores;
 	}
 
 	public Long getId() {

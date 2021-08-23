@@ -58,7 +58,7 @@ public class Fornecedor implements Serializable {
 	// insumos repetidos para um determinado fornecedor
 	@JsonIgnore
 	@OneToMany(mappedBy = "id.fornecedor")
-	private Set<InsumoFornecedor> insumosFornecedor = new HashSet<>();
+	private Set<InsumoFornecedor> insumoFornecedores = new HashSet<>();
 
 	public Fornecedor(Long id, String nomeFantasia, String endereco, Long numero, String bairro,
 			String horarioFuncionamento, Cidade cidade) {
@@ -76,12 +76,12 @@ public class Fornecedor implements Serializable {
 
 	}
 
-	public Set<InsumoFornecedor> getInsumosFornecedor() {
-		return insumosFornecedor;
+	public Set<InsumoFornecedor> getInsumoFornecedores() {
+		return insumoFornecedores;
 	}
 
-	public void setInsumosFornecedor(Set<InsumoFornecedor> insumosFornecedor) {
-		this.insumosFornecedor = insumosFornecedor;
+	public void setInsumoFornecedores(Set<InsumoFornecedor> insumoFornecedores) {
+		this.insumoFornecedores = insumoFornecedores;
 	}
 
 	public Long getId() {

@@ -5,10 +5,10 @@ import java.math.BigDecimal;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name = "insumo_fornecedor")
 public class InsumoFornecedor implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
@@ -17,6 +17,7 @@ public class InsumoFornecedor implements Serializable {
 	// e implementar getters e setters manualmente de forma adaptada também
 	// 
 	// os recursos da IDE não fazem isso
+	@JsonIgnore
 	@EmbeddedId
 	private InsumoFornecedorPK id = new InsumoFornecedorPK();
 	
@@ -38,6 +39,7 @@ public class InsumoFornecedor implements Serializable {
 		this.qtdPorEmbalagem = qtdPorEmbalagem;
 	}
 	
+	@JsonIgnore
 	public Insumo getInsumo() {
 		return id.getInsumo();
 	}
