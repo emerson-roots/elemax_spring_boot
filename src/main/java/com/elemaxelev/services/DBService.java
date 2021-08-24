@@ -65,7 +65,9 @@ public class DBService {
 
 		Fornecedor fornecedor1 = new Fornecedor(null, "Magazine Luiza", "Av. Brasil", 123l, "Indianapolis", "08:00 as 18:00", cidade1);
 		Fornecedor fornecedor2 = new Fornecedor(null, "Casas Bahia", "Rua Bahia", 321l, "Monaco", "09:00 as 12:00", cidade3);
-		fornecedorRepository.saveAll(Arrays.asList(fornecedor1, fornecedor2));
+		Fornecedor fornecedor3 = new Fornecedor(null, "Ponto Frio", "Rua Guaiuba", 555l, "Jurandopolis", "07:00 as 15:00", cidade2);
+		
+		fornecedorRepository.saveAll(Arrays.asList(fornecedor1, fornecedor2, fornecedor3));
 		
 		
 		Insumo insumo1 = new Insumo(null, "Parafuso 3mm", new BigDecimal(150), UnidadeMedida.PECA, 200.0, new BigDecimal(20.5), LocalDate.now());

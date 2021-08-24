@@ -47,6 +47,7 @@ public class InsumoService {
 
 			// adiciona fornecedores do insumo a lista (somente as PKs)
 			for (InsumoFornecedores ip : obj.getInsumoFornecedores()) {
+
 				ip.setInsumo(obj);
 				ip.setFornecedor(ip.getFornecedor());
 			}
@@ -67,7 +68,22 @@ public class InsumoService {
 		Insumo objByNome = insumoRepository.findByNome(obj.getNome());
 
 		if (objByNome == null) {
+			
+			//deleta TODOS os fornecedores de insumo 
+			insumoFornecedorRepository.deletarPorIdInsumo(obj.getId());
+			
 			updateData(newObj, obj);
+			
+			for (InsumoFornecedores ip : newObj.getInsumoFornecedores()) {
+
+				ip.setInsumo(newObj);
+				ip.setFornecedor(ip.getFornecedor());
+			}
+
+			if (!newObj.getInsumoFornecedores().isEmpty()) {
+				insumoFornecedorRepository.saveAll(newObj.getInsumoFornecedores());
+			}
+
 			return insumoRepository.save(newObj);
 		} else {
 			throw new DataIntegrityExceptionPersonalized(
@@ -82,6 +98,13 @@ public class InsumoService {
 		newObj.setQtdPorEmbalagem(obj.getQtdPorEmbalagem());
 		newObj.setValorPorUnidade(obj.getValorPorUnidade());
 		newObj.setDataAtualizacao(obj.getDataAtualizacao());
+
+		for (InsumoFornecedores ip : obj.getInsumoFornecedores()) {
+
+			ip.setInsumo(obj);
+			ip.setFornecedor(ip.getFornecedor());
+			newObj.setInsumoFornecedores(obj.getInsumoFornecedores());
+		}
 	}
 
 	public void delete(Long id) {
